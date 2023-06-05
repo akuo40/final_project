@@ -1,10 +1,10 @@
 class Bird{
-  float x;
-  float y;
-  float verticalSpeed;
+  int x;
+  int y;
+  int verticalSpeed;
   PImage birdImage;
   
-  Bird(PImage image, float tempX, float tempY, int size) {
+  Bird(PImage image, int tempX, int tempY, int size) {
     this.x = tempX;
     this.y = tempY;
     birdImage = image;
