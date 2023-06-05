@@ -1,9 +1,9 @@
 class Pipe {
-  float x;
-  float y;
+  int x;
+  int y;
   PImage upPipe;
   PImage downPipe;
-  float speed;
+  int speed;
   Pipe(PImage up, PImage down, int size, int startX, int startY) {
     speed = 2;
     x = startX;
@@ -24,7 +24,7 @@ class Pipe {
     this.x -= speed;
     if(x < -70) {
       x = width + 70;
-      y = random(height/2 - 200, height/2 + 200);
+      y = (int) random(height/2 - 200, height/2 + 200);
     }
   }
 }
