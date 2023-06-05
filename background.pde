@@ -1,9 +1,9 @@
 class Background{
-  float x;
-  float y;
-  float speed;
+  int x;
+  int y;
+  int speed;
   PImage background;
-  Background(PImage image, float tempX, float tempY, int size) {
+  Background(PImage image, int tempX, int tempY, int size) {
     speed = 2;
     this.x = tempX;
     this.y = tempY;
