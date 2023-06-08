@@ -11,14 +11,22 @@ PImage gameOver;
 PImage scoreBoard;
 PImage playAgain;
 PImage startImage;
+PImage play;
+PImage pause;
 Rain[] rain;
+Boolean paused;
 
 void setup(){
-  size(1000, 750);
+  size(1000, 750); 
   imageMode(CENTER);
   PImage flappyBirdImage = loadImage("pngegg.png");
   PImage pipe2 = loadImage("pipe2.png");
   PImage pipe = loadImage("pipe.png");
+  play = loadImage("play.png");
+  play.resize(75, 0);
+  pause = loadImage("pause.png");
+  pause.resize(75, 0);
+  paused = false;
   imageMode(CORNER);
   PImage backgroundImage = loadImage("background.png");
   doublePipe0 = new Pipe(pipe, pipe2, 500, (width), height / 2);
@@ -49,16 +57,18 @@ void setup(){
 }
 
 void draw() {  
-  background.update();
   background.display();
-  doublePipe0.update();
   doublePipe0.display();
-  doublePipe1.update();
   doublePipe1.display();
-  doublePipe2.update();
   doublePipe2.display();
-  bird.update();    
   bird.display();
+  if (!paused) {
+    background.update();
+    doublePipe0.update();
+    doublePipe1.update();
+    doublePipe2.update();
+    bird.update();    
+  }
   isDead();
   if (score >= 5) {
     for (int i = 0; i < rain.length; i++) {
@@ -66,15 +76,36 @@ void draw() {
       rain[i].update();
     }
   }
-  if (keyPressed) {
-    if (key == ' ') {   
-      if (! bird.aboveMap() && (! isDead)){
-        bird.verticalSpeed = -7;
+  if (!paused) {
+    if (keyPressed || (mousePressed == true && !isDead)) {
+      if (key == ' ') {   
+        if (! bird.aboveMap() && (! isDead)){
+          bird.verticalSpeed = -7;
+        }
       }
     }
   }
   if (score > highScore) {
     highScore = score;
+  }
+  if (!startScreen && !isDead) {
+    if (!paused) {
+      image(pause, 50, 50);
+    } else {
+      image(play, 50, 50);
+    }
+  }
+  if (mousePressed == true) {
+    if (mouseX > 12.5 && mouseX < 87.5 && mouseY > 12.5 && mouseY < 87.5) {
+       if (paused) {
+          paused = false;
+          delay(200);
+       }
+       else {
+          paused = true;
+          delay(200);
+       }
+    }
   }
   if (isDead) {
     if (! startScreen) {
